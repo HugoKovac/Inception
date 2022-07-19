@@ -4,7 +4,9 @@ Créer une machine virtuelle avec Docker
 ## C'est quoi ?
 <details><summary>Explications de notions</summary>
 
-### C'est quoi Docker
+### C'est quoi Docker ?
+  
+### C'est quoi la difference entre un processus et un service ?
 
 ### C'est quoi un Docker Compose ?
 *[source](https://docs.docker.com/compose/)*
@@ -36,7 +38,11 @@ Créer une machine virtuelle avec Docker
 ## Pourquoi ?
 <details><summary>Utilité de choses faites dans le projet</summary>
 
-### Pourquoi faire un container par service ?
+### Pourquoi faire un container par processus ?
+  
+### Pourquoi ne pas utiliser un container comme une VM ?
+  Attention un container n'est pas une VM. Ils doivent etres utiliser diffremment.
+  Par exemple si vous voulez faire une update dans le container et que executer simplement la commande d'update dans celui-ci l'image du container sera toujours sur l'ancienne version
   
 </details>
 
