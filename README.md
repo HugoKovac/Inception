@@ -9,6 +9,8 @@ Créer une machine virtuelle avec Docker
 ### C'est quoi un Docker Compose ?
 *[source](https://docs.docker.com/compose/)*
 
+### C'est quoi Container ?
+
 ### C'est quoi Container Docker ?
 
 ### C'est quoi TLS ?
@@ -28,6 +30,13 @@ Créer une machine virtuelle avec Docker
 ### C'est quoi des Dockerfiles ?
 
 ### C'est quoi le PID1 ?
+  
+</details>
+
+## Pourquoi ?
+<details><summary>Utilité de choses faites dans le projet</summary>
+
+### Pourquoi faire un container par service ?
   
 </details>
 
