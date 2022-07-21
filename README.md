@@ -1,5 +1,5 @@
 # Inception
-Créer une machine virtuelle avec Docker
+Créer une server web avec Docker
 
 ## C'est quoi ?
 <details><summary>Explications de notions</summary>
@@ -47,7 +47,7 @@ FTP ou File Transfert Protocol est un protocol de communication qui permet de tr
 </br>*[source](https://en.wikipedia.org/wiki/File_Transfer_Protocol)*
 
 ### C'est quoi NGINX ?
-NGINX est un server web. **(a preciser)**
+NGINX est un server HTTP, qui peut supporter beaucoup plus trafic simultanée que Apache par exemple.
 </br>*[source](https://en.wikipedia.org/wiki/Nginx)*
 
 ### C'est quoi WordPress ?
