@@ -84,6 +84,23 @@ Ca qui fait que si le programme n'est pas prevu pour tourner en PID1 il marche m
 * [ ] Un second volume contenant les fichiers de votre site WordPress.
 * [ ] Un docker-network qui fera le lien entre vos containers.
 
+## Créer le Docker file de NGINX et TLS
+<!-- <details><summary></summary> -->
+
+</br>
+
+C'est facultatif mais il est bien de mettre un moyen d'etre contacte dans dans les meta-donnees du container grace a container.
+
+`LABEL maintainer=name<mail@domain>`
+
+* [Apprendre a faire un Dockerfile](https://putaindecode.io/articles/les-dockerfiles/)</br>
+* [DockerFile best practices Doc](https://docs.docker.com/get-started/09_image_best/)</br>
+* [DockerFile for NGINX Doc](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-docker/)</br>
+* [DockerFile Doc (keywords)](https://docs.docker.com/engine/reference/builder/)</br>
+
+<!-- </details> -->
+
+
 ## Resources tmp
 * https://www.youtube.com/watch?v=1P54UoBjbDs - Install php-fpm on ubuntu
 * https://www.youtube.com/watch?v=I_9-xWmkh28 - install nginx and php-fpm and explain why different containers
