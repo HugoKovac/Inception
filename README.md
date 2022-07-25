@@ -9,7 +9,7 @@ Docker est une solution qui permet de faire tourner des application dans un envi
 </br>*[source](https://docs.docker.com/get-started/overview/)*
 
 ### C'est quoi un Container ?
-Un container est une methode de virtualtisation au niveau du systeme d'exploitation. Concrètement cela permet d'avoir des user space, serveur virtuel privé, partition, environemment... séparé tous en utilisant le meme kernel (celui de la machine host), ce qui est beaucoup moins lourd que un machine virtuelle.
+Un container est une methode de virtualtisation au niveau du systeme d'exploitation. Concrètement cela permet d'avoir des OS, CPU, memoires, reseaux... séparé tous en utilisant le meme kernel (celui de la machine host), ce qui est beaucoup moins lourd que un machine virtuelle.
 </br>*[source 1](https://en.wikipedia.org/wiki/LXC) | [source 2](https://en.wikipedia.org/wiki/OS-level_virtualization)*
 
 
@@ -26,7 +26,7 @@ C'est un fichier qui permet de creer l'image du container.
 </br>[source](https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Dockerfile-vs-docker-compose-Whats-the-difference)
 
 ### C'est quoi un Docker Compose ?
-docker-compose.yml est le fichier qui va permettre de *"run"* la partie applicative du container, c'est a dire les service et processus a lancer, reboot, shut ...
+docker-compose.yml est le fichier qui va permettre de lancer, arreter ... ces images.
 </br>*[source](https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Dockerfile-vs-docker-compose-Whats-the-difference)*
 
 
@@ -34,17 +34,6 @@ docker-compose.yml est le fichier qui va permettre de *"run"* la partie applicat
 C'est un protocole de cryptographie qui assure la securitee des donnees dans un resau. Il est par exemple le protocole de securite de HTTPS.
 </br>*[source](https://en.wikipedia.org/wiki/Transport_Layer_Security)*
 
-### C'est quoi Adminer ?
-C'est un outil qui permet de gerer le contenu des bases de donnee. Pour par exemple inserer, modifier, chercher dans les base de donnees.
-</br>*[source](https://en.wikipedia.org/wiki/Adminer)*
-
-### C'est quoi Redis Cache ?
-Redis ou Remote dictionary Server permet de stocker le cache de WordPress dans un objet persistant de data structures specifiques.**(a preciser)**
-</br>*[source 1](https://en.wikipedia.org/wiki/Redis) | [source 2](https://kinsta.com/help/redis-cache/)*
-
-### C'est quoi FTP ?
-FTP ou File Transfert Protocol est un protocol de communication qui permet de transferer des fichier d'un server a un client dans un resau internet.
-</br>*[source](https://en.wikipedia.org/wiki/File_Transfer_Protocol)*
 
 ### C'est quoi NGINX ?
 NGINX est un server HTTP, qui peut supporter beaucoup plus trafic simultanée que Apache par exemple.
@@ -55,16 +44,23 @@ Permet de creer le site de A a Z. **(a preciser)**
 </br>*[source](https://fr.wikipedia.org/wiki/WordPress)*
 
 ### C'est quoi php-fpm ?
+Le code PHP sera nos pages internet qui seront donc chercher puis envoyee par NGINX en fonction des requetes qui lui sont faites. FPM est donc un service qui va interpreter le code PHP chercher de potentiel donner dynamiques(dans la DB) avant de l'envoyer a NGINX en html qui lui va l'envoyer au client.
+</br>*[source 1](https://www.youtube.com/watch?v=I_9-xWmkh28) | [source 2](https://www.youtube.com/watch?v=6QGskEOIS9E)*
   
 ### C'est quoi MariaDB ?
+MariaDB est simplement un service qui va strocker nos donnees dans des "tables". Ce sera notre Data Base.
 
-### C'est quoi docker-network ?
-
-### C'est quoi hacky-patch ?
-
-### C'est quoi des Dockerfiles ?
+### C'est quoi un docker-network ?
+De base Docker fait communiquer tous les containers entre eux via le docker network. Mais dans de nombreux cas on veut une configuration specifique au niveau de nos resaux. Comme isoler certain, en faire communiquer d'autre ou lier nos containers a la machine Hote. Tous cela est possible grace au plugin docker network
+</br>*[source](https://www.youtube.com/watch?v=5grbXvV_DSk)*
 
 ### C'est quoi le PID1 ?
+Le pid1 est le processus sur la machine qui porte le numero 1. Il a certaine particularitee : 
+* When the process with pid 1 die for any reason, all other processes are killed with KILL signal
+* When any process having children dies for any reason, its children are reparented to process with PID 1
+* Many signals which have default action of Term do not have one for PID 1
+Ca qui fait que si le programme n'est pas prevu pour tourner en PID1 il marche mal. C'est le cas de docker (voir source 2).
+</br>*[source 1](https://vagga.readthedocs.io/en/latest/pid1mode.html) | [source 2](https://petermalmgren.com/signal-handling-docker/)*
   
 </details>
 
@@ -87,3 +83,7 @@ Permet de creer le site de A a Z. **(a preciser)**
 * [ ] Un volume contenant votre base de données WordPress.
 * [ ] Un second volume contenant les fichiers de votre site WordPress.
 * [ ] Un docker-network qui fera le lien entre vos containers.
+
+## Resources tmp
+* https://www.youtube.com/watch?v=1P54UoBjbDs - Install php-fpm on ubuntu
+* https://www.youtube.com/watch?v=I_9-xWmkh28 - install nginx and php-fpm and explain why different containers
