@@ -36,7 +36,7 @@ C'est un protocole de cryptographie qui assure la securitee des donnees dans un 
 
 
 ### C'est quoi NGINX ?
-NGINX est un server HTTP, qui peut supporter beaucoup plus trafic simultanée que Apache par exemple.
+NGINX est un server HTTPm ici utilise comme reverse proxy, qui peut supporter beaucoup plus trafic simultanée que Apache par exemple.
 </br>*[source](https://en.wikipedia.org/wiki/Nginx)*
 
 ### C'est quoi WordPress ?
@@ -55,7 +55,8 @@ De base Docker fait communiquer tous les containers entre eux via le docker netw
 </br>*[source](https://www.youtube.com/watch?v=5grbXvV_DSk)*
 
 ### C'est quoi le PID1 ?
-Le pid1 est le processus sur la machine qui porte le numero 1. Il a certaine particularitee : 
+Le pid1 est le processus sur la machine qui porte le numero 1. 
+Il a certaine particularitee : 
 * When the process with pid 1 die for any reason, all other processes are killed with KILL signal
 * When any process having children dies for any reason, its children are reparented to process with PID 1
 * Many signals which have default action of Term do not have one for PID 1
@@ -89,11 +90,65 @@ Ca qui fait que si le programme n'est pas prevu pour tourner en PID1 il marche m
 
 </br>
 
-C'est facultatif mais il est bien de mettre un moyen d'etre contacte dans dans les meta-donnees du container grace a container.
+C'est facultatif mais il est bien de mettre un moyen d'etre contacte dans dans les meta-donnees du container grace a `LABEL`.
 
 `LABEL maintainer=name<mail@domain>`
 
+---
+
+Nous basons notre image sur une os `FORM` debian:buster dans notre cas. Ce sera la seul image que nous utiliserons de docker hub dans ce projet.
+
+`FROM image_form_dockerhub:tag`
+
+Le tag est une image specifique de l'image.
+
+---
+
+`RUN` est une commande qui permet de lancer des commande shell dans le container.
+
+-it permet de mettre le container en mode interactif. Il reste ouvert et on peut ecrire dans sont shell.
+
+--name pour nommer l'image
+
+---
+
+`ADD` permet de d'ajouter dans le container des fichier via la machine hote.
+
+---
+
+`WORKDIR` change le repertoire courant du container, toutes les commande du container seront execute dans ce repertoire
+
+---
+
+A chaque commande du Dockerfile un nouveau container est cree. L'image final du container est un superposition de ces containers appele "couche". Si l'image est re run les couches non changees ne sont pas rebuild. Si elles ont change tous est rebuild depuis la ligne qui a changee. Ainsi si on a un fichier que l'on veut `ADD` mais qui change beaucoup on va l'ajouter au dernier moment possible.
+
+`ADD . /app` <- rebuild a partir d'ici si "." change</br>
+`run install something` <- donc something est encore installe pour rien</br>
+
+`run install something` <- something pas reinstalle car ne change pas</br>
+`ADD . /app` <- rebuild a partir d'ici si "." change</br>
+
+---
+
+On va commencer par installer les service dont on a besoin.
+* Tout d'abord on update les packages list depuis lesquelles on va telecharger et upgrade les packages.
+* Puis install nginx
+* Enfin install Openssl qui est un library qui a TLS 1.2
+
+On va tous faire en une fois pour le faire en une couche.
+
+`RUN		apt-get update \`</br>
+`&&		apt-get clean \`</br>
+`&&		apt-get install nginx -y \`</br>
+`&&		apt-get install openssl -y`</br>
+
+
+</br>
+
+*source :*
 * [Apprendre a faire un Dockerfile](https://putaindecode.io/articles/les-dockerfiles/)</br>
+* [Docker RUN options](https://phoenixnap.com/kb/docker-run-command-with-examples)</br>
+* [Laisser le container tourner](https://devopscube.com/keep-docker-container-running/)</br>
 * [DockerFile best practices Doc](https://docs.docker.com/get-started/09_image_best/)</br>
 * [DockerFile for NGINX Doc](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-docker/)</br>
 * [DockerFile Doc (keywords)](https://docs.docker.com/engine/reference/builder/)</br>
@@ -103,4 +158,4 @@ C'est facultatif mais il est bien de mettre un moyen d'etre contacte dans dans l
 
 ## Resources tmp
 * https://www.youtube.com/watch?v=1P54UoBjbDs - Install php-fpm on ubuntu
-* https://www.youtube.com/watch?v=I_9-xWmkh28 - install nginx and php-fpm and explain why different containers
+* https://www.youtube.com/watch?v=I_9-xWmkh28 - Install nginx and php-fpm and explain why different containers
