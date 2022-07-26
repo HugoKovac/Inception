@@ -148,7 +148,8 @@ On va tous faire en une fois pour le faire en une couche.
 *source :*
 * [Apprendre a faire un Dockerfile](https://putaindecode.io/articles/les-dockerfiles/)</br>
 * [Docker RUN options](https://phoenixnap.com/kb/docker-run-command-with-examples)</br>
-* [Laisser le container tourner](https://devopscube.com/keep-docker-container-running/)</br>
+* [Laisser le container tourner (avec des daemon)](https://docs.docker.com/engine/security/rootless/#daemon)</br>
+* [docker run -dt](https://www.youtube.com/watch?v=-i7LGwKsRSM)</br>
 * [DockerFile best practices Doc](https://docs.docker.com/get-started/09_image_best/)</br>
 * [DockerFile for NGINX Doc](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-docker/)</br>
 * [DockerFile Doc (keywords)](https://docs.docker.com/engine/reference/builder/)</br>
