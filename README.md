@@ -142,17 +142,50 @@ On va tous faire en une fois pour le faire en une couche.
 `&&		apt-get install nginx -y \`</br>
 `&&		apt-get install openssl -y`</br>
 
+---
+
+Une fois installe nous allons lancer NGINX grace a :
+
+`CMD ["service", "nginx", "start"]`
+
+De base et dans un serveur normal nginx est par defaut :
+
+`nginx -g daemon on`
+
+Car un serveur fait plusieurs actions en meme temps et donc voulons que le service tourne en tache de fond.
+
+Avec Docker nous allons mettre :
+
+`CMD ["nginx", "-g", "daemon on;"]`
+
+Car nous avons seulement 1 service par container. Il faut egalement souligner que sans cette option le container exit juste apres avoir run car il n'a plus rien a faire en premier plan.
+
+
+---
+
+On va run notre image avec `docker run --rm --name nginx -td -p 80:80 test2`
+
+-d pour faire tourner notre container en tache de fond
+
+-t pour allouer un pseudo-tty qui va permettre au container de continuer a tourner.
+
+-p pour mapper le port 80 de notre container avec le port 80 de notre hote.
 
 </br>
 
-*source :*
+<details><summary>source </summary>
+
 * [Apprendre a faire un Dockerfile](https://putaindecode.io/articles/les-dockerfiles/)</br>
 * [Docker RUN options](https://phoenixnap.com/kb/docker-run-command-with-examples)</br>
+* [Toutes les commandes docker expliquee](https://buddy.works/tutorials/docker-commands-cheat-sheet)</br>
+
 * [Laisser le container tourner (avec des daemon)](https://docs.docker.com/engine/security/rootless/#daemon)</br>
 * [docker run -dt](https://www.youtube.com/watch?v=-i7LGwKsRSM)</br>
 * [DockerFile best practices Doc](https://docs.docker.com/get-started/09_image_best/)</br>
 * [DockerFile for NGINX Doc](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-docker/)</br>
 * [DockerFile Doc (keywords)](https://docs.docker.com/engine/reference/builder/)</br>
+
+</details>
 
 <!-- </details> -->
 
@@ -160,3 +193,18 @@ On va tous faire en une fois pour le faire en une couche.
 ## Resources tmp
 * https://www.youtube.com/watch?v=1P54UoBjbDs - Install php-fpm on ubuntu
 * https://www.youtube.com/watch?v=I_9-xWmkh28 - Install nginx and php-fpm and explain why different containers
+* https://medium.com/swlh/wordpress-deployment-with-nginx-php-fpm-and-mariadb-using-docker-compose-55f59e5c1a - Installation de nginx word press et maria db dans Docker
+* https://ragin.medium.com/writing-a-dockerfile-2b1071bd1119#70a5 - Ecrire un makefile
+
+## TODO tmp
+
+* Comment TLS/SSL marche
+* Comment generer les certificats TLS
+* Comment configurer nginx avec TLS
+* Comment rediriger le port 80 vers 443
+
+https://hackernoon.com/how-properly-configure-nginx-server-for-tls-sg1d3udt
+
+https://www.youtube.com/watch?v=7YgaZIFn7mY
+
+https://www.youtube.com/watch?v=-f4Gbk-U758

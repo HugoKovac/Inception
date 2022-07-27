@@ -6,8 +6,10 @@ RUN		apt-get update \
 &&		apt-get install nginx -y \
 &&		apt-get install openssl -y
 
-CMD ["service", "nginx", "start"]
-CMD ["nginx", "-g", "daemon off;"]
-# What id daemon and why this option
+EXPOSE 80
+EXPOSE 443
 
-# run with docker run -td -p 80:80 test2 why -td
+STOPSIGNAL SIGQUIT
+
+CMD ["nginx", "-g", "daemon off;"]
+
