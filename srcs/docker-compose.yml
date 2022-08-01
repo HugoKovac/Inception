@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  nginx:
+    build: ./requirements/nginx/
+    container_name: nginx
+    ports: 
+      - "80:80"
+      - "443:443"
+    restart: always
+    volumes:
+      - ./requirements/nginx/conf/core.conf:/etc/nginx/conf.d/core.conf:ro
+      # - ./requirements/nginx/html/:/var/www/html/:ro
+      - ./requirements/nginx/conf/auth_ssl:/var/ssl/:ro

@@ -137,16 +137,15 @@ On va commencer par installer les service dont on a besoin.
 
 On va tous faire en une fois pour le faire en une couche.
 
-`RUN		apt-get update \`</br>
-`&&		apt-get clean \`</br>
-`&&		apt-get install nginx -y \`</br>
-`&&		apt-get install openssl -y`</br>
+```Dockerfile
+RUN		apt-get update \
+&&		apt-get clean \
+&&		apt-get install nginx -y \
+&&		apt-get install openssl -y
+```
 
 ---
 
-Une fois installe nous allons lancer NGINX grace a :
-
-`CMD ["service", "nginx", "start"]`
 
 De base et dans un serveur normal nginx est par defaut :
 
@@ -163,22 +162,54 @@ Car nous avons seulement 1 service par container. Il faut egalement souligner qu
 
 ---
 
-On va run notre image avec `docker run --rm --name nginx -td -p 80:80 test2`
+Pour faire notre serveur web nous allons creer un container par service. Il serait donc pas pratique de faire `docker run -option image` pour chaque service. On a donc docker-compose qui est un fichier sous format yml qui va nous permettre de faire ca. 
 
--d pour faire tourner notre container en tache de fond
+Voici a quoi ressemble le service dans notre docker compose pour nginx-tls :
 
--t pour allouer un pseudo-tty qui va permettre au container de continuer a tourner.
+```yml
+services: 
+  nginx-tls:
+    build: .
+    container_name: nginx-tls
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+```
 
--p pour mapper le port 80 de notre container avec le port 80 de notre hote.
+---
+
+Pour lancer vos containers faites `docker-compose run`  ou `docker-compose run -d` pour lancer le/s containers en tache de fond.
+
+Pour vous faciliter la vie vous pouvez aussi utiliser --remove-orphans pour override un service qui serait deja en route mais qui aurai le meme nom, mais faites attention ducoup.
+
+Si vous rencontrez une erreur du type 
+
+` => ERROR [internal] load metadata for docker.io/library/debian:buster`
+
+Ouvrez ~/.docker/config.json et modifier `credsStore` en `lcredStore`
+
+Le fichier changer a chaque redemarrage donc vous pouvez mettre 
+
+```sh
+echo "{
+  \"credStore\": \"desktop.exe\"
+}" > ~/.docker/config.json
+```
+
+dans votre .bash/zshrc
+
+---
+
+Maintenant on va pourvoir passer a la configuration de nginx en tant que web server et reverse proxy
 
 </br>
-
 <details><summary>source </summary>
 
 * [Apprendre a faire un Dockerfile](https://putaindecode.io/articles/les-dockerfiles/)</br>
 * [Docker RUN options](https://phoenixnap.com/kb/docker-run-command-with-examples)</br>
 * [Toutes les commandes docker expliquee](https://buddy.works/tutorials/docker-commands-cheat-sheet)</br>
-
+* [Comment fonctionne TLS](https://www.youtube.com/watch?v=7W7WPMX7arI)</br>
 * [Laisser le container tourner (avec des daemon)](https://docs.docker.com/engine/security/rootless/#daemon)</br>
 * [docker run -dt](https://www.youtube.com/watch?v=-i7LGwKsRSM)</br>
 * [DockerFile best practices Doc](https://docs.docker.com/get-started/09_image_best/)</br>
@@ -194,17 +225,8 @@ On va run notre image avec `docker run --rm --name nginx -td -p 80:80 test2`
 * https://www.youtube.com/watch?v=1P54UoBjbDs - Install php-fpm on ubuntu
 * https://www.youtube.com/watch?v=I_9-xWmkh28 - Install nginx and php-fpm and explain why different containers
 * https://medium.com/swlh/wordpress-deployment-with-nginx-php-fpm-and-mariadb-using-docker-compose-55f59e5c1a - Installation de nginx word press et maria db dans Docker
-* https://ragin.medium.com/writing-a-dockerfile-2b1071bd1119#70a5 - Ecrire un makefile
+* https://ragin.medium.com/writing-a-dockerfile-2b1071bd1119#70a5 - Ecrire un Dockerfile
+https://www.youtube.com/watch?v=wQcSql62zRo - implanter tls avec nginx
 
 ## TODO tmp
 
-* Comment TLS/SSL marche
-* Comment generer les certificats TLS
-* Comment configurer nginx avec TLS
-* Comment rediriger le port 80 vers 443
-
-https://hackernoon.com/how-properly-configure-nginx-server-for-tls-sg1d3udt
-
-https://www.youtube.com/watch?v=7YgaZIFn7mY
-
-https://www.youtube.com/watch?v=-f4Gbk-U758
