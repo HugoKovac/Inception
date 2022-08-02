@@ -86,7 +86,7 @@ Ca qui fait que si le programme n'est pas prevu pour tourner en PID1 il marche m
 * [ ] Un docker-network qui fera le lien entre vos containers.
 
 ## Créer le Docker file de NGINX et TLS
-<!-- <details><summary></summary> -->
+<details><summary></summary>
 
 </br>
 
@@ -297,10 +297,11 @@ Pour ce faire on modifie `/etc/hosts` :
 * [DockerFile for NGINX Doc](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-docker/)</br>
 * [DockerFile Doc (keywords)](https://docs.docker.com/engine/reference/builder/)</br>
 * [SSL on nginx](https://www.youtube.com/watch?v=wQcSql62zRo)</br>
+* [Nginx Docker et Wordpress](https://www.youtube.com/watch?v=786dRn1Ioug)</br>
 
 </details>
 
-<!-- </details> -->
+</details>
 
 
 ## Resources tmp
