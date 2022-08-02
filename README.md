@@ -203,6 +203,87 @@ dans votre .bash/zshrc
 
 Maintenant on va pourvoir passer a la configuration de nginx en tant que web server et reverse proxy
 
+Tout d'abord on va creer un fichier en local sur la machine host avec une extension .conf.
+
+Commencons par la config. http :
+
+```
+server { 
+		listen 80; #ipv4
+		listen [::]:80; #ipv6
+		server_name login.42.fr www.login.42.fr;
+		return 301 https://$server_name$request_uri; 
+}
+```
+
+Nous voulons que toutes les requets http (port 80) en ipv4 ou ipv6 soit rediriger vers le port 443 (site en https).
+* 301 : code html de redirection permanante
+* https : envoyer sur port 443
+* $server_name : variable nginx que nous avons initaliser avant
+* $request_uri : variable nginx qui est l'endroit du site dans lequel est le user
+
+Puis on fait la config https :
+
+```
+server {
+	listen 443 ssl;
+	listen [::]:443 ssl;
+
+	ssl on; 
+	ssl_certificate x;
+	ssl_certificate_key y;
+
+	server_name login.42.fr www.login.42.fr;
+
+	location / { 
+		root /var/www/html;
+		index index.html index.htm index.nginx-debian.html;
+	}
+}
+```
+
+A cette etape il faut creer un certificat et un clef ssl sur la machine host avec `sudo openssl req x509 -nodes -days 3650 -newkey rsa:2048 -sha384 -keyout server-cert.key -out server-cert.crt` qui vous permez de creer une clef auto signer d'une validite de 10 ans avec une encryption sha384 appele server-cert.key et un certificat appele server-cert.crt
+
+---
+
+Nous allons maintenant rendre accessible nos fichier locaux dans notre container grace aux volumes.
+
+Dans notre docker-compose on peut ajouter :
+
+```
+volumes:
+      - ./requirements/nginx/conf/core.conf:/etc/nginx/conf.d/core.conf:ro #change location of volume in /home/hkovac/data
+      - ./requirements/nginx/conf/auth_ssl:/var/ssl/:ro
+```
+
+local_dir/file:container_dir/file:readonly
+
+Ces fichier sont juste des link donc quand vous allez les modifier en local ils seront update meme pendant le run time du container.
+
+---
+
+Nous allons donc modifier dans notre .conf
+
+```
+	ssl_certificate /var/ssl/server-cert.crt;
+	ssl_certificate_key /var/ssl/server-cert.key;
+```
+
+---
+
+Pour aider au debug de votre config vous pouvez lancer vo(s) containers en mode demon et faire `docker-compose exec nom_image bash` et apres avoir modier le fichier faire nginx -s reload dans le container.
+
+---
+
+Pour ce simplifier la vie on veut que lorsqu'on tape login.42.fr on soit rediriger vers notre ip local (chez moi 127.0.0.1).
+
+Pour ce faire on modifie `/etc/hosts` :
+
+```
+127.0.0.1       localhost hkovac.42.fr www.hkovac.42.fr <- ici
+127.0.1.1       inception-VirtualBox
+```
+
 </br>
 <details><summary>source </summary>
 
@@ -215,6 +296,7 @@ Maintenant on va pourvoir passer a la configuration de nginx en tant que web ser
 * [DockerFile best practices Doc](https://docs.docker.com/get-started/09_image_best/)</br>
 * [DockerFile for NGINX Doc](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-docker/)</br>
 * [DockerFile Doc (keywords)](https://docs.docker.com/engine/reference/builder/)</br>
+* [SSL on nginx](https://www.youtube.com/watch?v=wQcSql62zRo)</br>
 
 </details>
 
