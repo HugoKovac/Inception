@@ -4,9 +4,6 @@ services:
   nginx:
     build: ./requirements/nginx/
     container_name: nginx
-    volumes:
-      - ./requirements/nginx/conf/core.conf:/etc/nginx/conf.d/core.conf:ro #change location of volume in /home/hkovac/data
-      - ./requirements/nginx/conf/auth_ssl:/var/ssl/:ro
     ports: 
       - "80:80"
       - "443:443"
