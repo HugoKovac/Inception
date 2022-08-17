@@ -1,9 +1,29 @@
 version: '3'
 
 services:
+
   nginx:
     build: ./requirements/nginx/
     container_name: nginx
     ports: 
       - "443:443"
     restart: always
+    networks:
+      - frontend
+
+  wp-fpm:
+    build: ./requirements/wordpress-fpm/
+    container_name: wp-fpm
+    tty: true
+    stdin_open: true
+    ports: 
+      - "9000:9000"
+    networks:
+      - frontend
+      - backend
+    restart: always
+
+
+networks:
+  frontend:
+  backend:
