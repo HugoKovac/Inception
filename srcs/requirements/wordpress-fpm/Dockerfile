@@ -10,7 +10,14 @@ RUN		apt-get update \
 RUN		wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 RUN		chmod +x wp-cli.phar \
-&&		mv wp-cli.phar /usr/local/bin/wp 
+&&		mv wp-cli.phar /usr/local/bin/wp \
+&&		adduser --system php && addgroup --system php \
+&&		mkdir -p /run/php
+
+COPY ./conf/php-fpm.conf /etc/php/7.3/fpm/php-fpm.conf
+COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
+
+CMD [ "php-fpm7.3", "-F" ]
 
 
 

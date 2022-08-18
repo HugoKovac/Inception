@@ -10,7 +10,5 @@ RUN		apt-get update \
 ADD ./conf/core.conf /etc/nginx/conf.d/core.conf
 ADD ./conf/auth_ssl/ /var/ssl/
 
-# EXPOSE 443
-
 CMD ["nginx", "-g", "daemon off;"]
 

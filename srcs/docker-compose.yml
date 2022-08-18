@@ -5,6 +5,10 @@ services:
   nginx:
     build: ./requirements/nginx/
     container_name: nginx
+    volumes:
+      - /home/hkovac/data:/var/www/html:ro
+    depends_on:
+      - wp-fpm
     ports: 
       - "443:443"
     restart: always
@@ -14,6 +18,8 @@ services:
   wp-fpm:
     build: ./requirements/wordpress-fpm/
     container_name: wp-fpm
+    volumes:
+      - /home/hkovac/data:/var/www/html:ro
     tty: true
     stdin_open: true
     ports: 
