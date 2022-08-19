@@ -10,7 +10,8 @@ RUN		apt-get update \
 RUN		wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 RUN		chmod +x wp-cli.phar \
-&&		mv wp-cli.phar /usr/local/bin/wp \
+&&		mkdir -p /usr/bin/wp \
+&&		mv wp-cli.phar /usr/bin/wp \
 &&		adduser --system php && addgroup --system php \
 &&		mkdir -p /run/php
 
