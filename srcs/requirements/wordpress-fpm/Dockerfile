@@ -13,7 +13,6 @@ RUN		adduser --system php && addgroup --system php \
 COPY ./conf/php-fpm.conf /etc/php/7.3/fpm/php-fpm.conf
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 COPY ./conf/config.sh /
-COPY ./conf/wp-config.php /var/www/html/wordpress/wp-config.php
 
 CMD [ "bash", "/config.sh" ]
 

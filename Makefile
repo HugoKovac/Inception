@@ -6,17 +6,13 @@ hosts:
 prune: clean
 	docker system prune -f
 
-reload: 
+reload:
+	cp srcs/requirements/wordpress-fpm/conf/wp-config.php /home/hkovac/data/wordpress
 	docker-compose -f srcs/docker-compose.yml up --build -d
 
 down:
 	docker-compose -f srcs/docker-compose.yml down
 
 re: down all
-
-
-# clean: reload
-# 	rm -rf ~/Desktop/inception
-#remove ?
 
 .PHONY: hosts down clean prune reload all re
