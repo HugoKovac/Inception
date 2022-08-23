@@ -3,22 +3,19 @@ LABEL maintainer=hkovac<hkovac@student.42.fr>
 
 RUN		apt-get update \
 &&		apt-get clean \
-&&		apt-get install php php-fpm -y \
+&&		apt-get install php php-fpm php-mysql -y \
 # php-fpm7.3
 &&		apt-get install wget -y
 
-RUN		wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-
-RUN		chmod +x wp-cli.phar \
-&&		mkdir -p /usr/bin/wp \
-&&		mv wp-cli.phar /usr/bin/wp \
-&&		adduser --system php && addgroup --system php \
+RUN		adduser --system php && addgroup --system php \
 &&		mkdir -p /run/php
 
 COPY ./conf/php-fpm.conf /etc/php/7.3/fpm/php-fpm.conf
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
+COPY ./conf/config.sh /
+COPY ./conf/wp-config.php /var/www/html/wordpress/wp-config.php
 
-CMD [ "php-fpm7.3", "-F" ]
+CMD [ "bash", "/config.sh" ]
 
 
 
