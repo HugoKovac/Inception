@@ -15,4 +15,7 @@ down:
 
 re: down all
 
-.PHONY: hosts down clean prune reload all re
+clean:
+	rm -rf /home/hkovac/data/db/*
+
+.PHONY: hosts down clean prune reload all re clean
