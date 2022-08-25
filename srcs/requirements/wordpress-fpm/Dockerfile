@@ -36,6 +36,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
   adduser -D -H -u 82 -s /sbin/nologin www-data -G www-data
 
 COPY ./conf/wp-cli.yml /
+COPY conf/www.conf /etc/php8/php-fpm.d/www.conf
 COPY ./conf/config.sh /var
 
 ENTRYPOINT ["sh", "/var/config.sh"]
