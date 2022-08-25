@@ -1,11 +1,11 @@
 all:
-	docker-compose -f srcs/docker-compose.yml up -d
+	docker-compose -f srcs/docker-compose.yml up 
 
 down:
 	docker-compose -f srcs/docker-compose.yml down
 
 re:
-	docker-compose -f srcs/docker-compose.yml up --build -d
+	docker-compose -f srcs/docker-compose.yml up --build 
 
 hosts:
 	echo "127.0.0.1 hkovac.42.fr" >> /etc/hosts

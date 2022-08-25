@@ -1,15 +1,18 @@
-FROM debian:buster
-LABEL maintainer=hkovac<hkovac@student.42.fr>
+FROM alpine:3.15.0
 
-RUN		apt-get update \
-&&		apt-get clean \
-&&		apt-get install mariadb-server -y \
-&&		apt-get install gettext-base -y
+# install prerequisites
+RUN apk update && \
+  apk add --no-cache \
+  mariadb mariadb-client
 
-COPY ./conf/start_mysql.sql /var
-COPY ./conf/to_print /var
+COPY ./conf/mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
 
-RUN envsubst < /var/to_print > var/start_mysql.sql
-RUN service mysql start; mysql < /var/start_mysql.sql; rm -f /var/start_mysql.sql
+COPY ./conf/script.sh /
+ENTRYPOINT ["sh", "/script.sh"]
 
-ENTRYPOINT [ "mysqld" ]
+EXPOSE 3306
+STOPSIGNAL SIGQUIT
+
+VOLUME ["/var/lib/mysql"]
+
+CMD ["mysqld_safe"]
