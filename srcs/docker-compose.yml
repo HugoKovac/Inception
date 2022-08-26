@@ -35,7 +35,7 @@ services:
     build: ./requirements/mariadb/
     container_name: mariadb
     volumes:
-      - /home/hkovac/data/db:/var/www/db
+      - /home/hkovac/data/db:/var/lib/mysql
     tty: true
     stdin_open: true
     env_file:
