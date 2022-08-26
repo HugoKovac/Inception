@@ -7,6 +7,7 @@ done
 
 
 if ! wp core is-installed; then
+  echo "download"
   wp --allow-root core download
   wp config create \
     --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=$DB_HOST
@@ -16,7 +17,9 @@ if ! wp core is-installed; then
     --admin_user="$WP_ADMIN_USER" --admin_email="$WP_ADMIN_EMAIL" --admin_password="$WP_ADMIN_PASSWORD"
   wp user create --porcelain \
     "$WP_AUTHOR_USER" "$WP_AUTHOR_EMAIL" --role=author --user_pass="$WP_AUTHOR_PASSWORD"
-  chown -R 82:82 /var/www/html
+  chown -R 42:42 /var/www/html
+else
+  echo "don't download"
 fi
 
-php-fpm8 -F
+exec "$@"

@@ -1,6 +1,5 @@
 FROM alpine:3.15.0
 
-# install prerequisites
 RUN apk update && \
   apk add --no-cache \
   mariadb mariadb-client

@@ -24,6 +24,6 @@ COPY ./conf/config.sh /var
 
 ENTRYPOINT ["sh", "/var/config.sh"]
 
-# STOPSIGNAL SIGQUIT
+STOPSIGNAL SIGQUIT
 
-# CMD ["php-fpm8", "-F"]
+CMD ["php-fpm8", "-F"]
