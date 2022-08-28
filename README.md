@@ -79,11 +79,11 @@ Ca qui fait que si le programme n'est pas prevu pour tourner en PID1 il marche m
 
 ## À implémenter
 * [X] Un container Docker contenant NGINX avec TLSv1.2 ou TLSv1.3 uniquement.
-* [ ] Un container Docker contenant WordPress + php-fpm (installé et configuré) uniquement sans nginx.
-* [ ] Un container Docker contenant MariaDB uniquement sans nginx.
-* [ ] Un volume contenant votre base de données WordPress.
-* [ ] Un second volume contenant les fichiers de votre site WordPress.
-* [ ] Un docker-network qui fera le lien entre vos containers.
+* [X] Un container Docker contenant WordPress + php-fpm (installé et configuré) uniquement sans nginx.
+* [X] Un container Docker contenant MariaDB uniquement sans nginx.
+* [X] Un volume contenant votre base de données WordPress.
+* [X] Un second volume contenant les fichiers de votre site WordPress.
+* [X] Un docker-network qui fera le lien entre vos containers.
 
 ## Créer le Docker file de NGINX et TLS
 <details><summary></summary>
@@ -304,10 +304,5 @@ Pour ce faire on modifie `/etc/hosts` :
 </details>
 
 
-## Resources tmp
-* https://www.youtube.com/watch?v=1P54UoBjbDs - Install php-fpm on ubuntu
-* https://www.youtube.com/watch?v=I_9-xWmkh28 - Install nginx and php-fpm and explain why different containers
-* https://www.youtube.com/watch?v=P_iqK_7qiZw - full setup en multi container de nginx wordpress fpm
-
-## TODO tmp
+# ce readme sera peut-être fini un jour, peut-être pas ...
 
