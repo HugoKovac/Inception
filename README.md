@@ -304,5 +304,5 @@ Pour ce faire on modifie `/etc/hosts` :
 </details>
 
 
-# ce readme sera peut-être fini un jour, peut-être pas ...
+# Ce readme sera peut-être fini un jour, peut-être pas ...
 
