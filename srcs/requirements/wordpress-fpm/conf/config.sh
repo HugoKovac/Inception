@@ -5,6 +5,7 @@ until mysql --host=mariadb --user=$DB_USER --password=$DB_PASSWORD -e '\c'; do
   sleep 1
 done
 
+cd /var/www
 
 if ! wp core is-installed; then
   echo "download"
@@ -17,7 +18,6 @@ if ! wp core is-installed; then
     --admin_user="$WP_ADMIN_USER" --admin_email="$WP_ADMIN_EMAIL" --admin_password="$WP_ADMIN_PASSWORD"
   wp user create --porcelain \
     "$WP_AUTHOR_USER" "$WP_AUTHOR_EMAIL" --role=author --user_pass="$WP_AUTHOR_PASSWORD"
-  chown -R 42:42 /var/www/html
 else
   echo "don't download"
 fi

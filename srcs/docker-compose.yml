@@ -6,7 +6,7 @@ services:
     build: ./requirements/nginx/
     container_name: nginx
     volumes:
-      - /home/hkovac/data:/var/www/html
+      - ./data/wordpress:/var/www/
     depends_on:
       - wp-fpm
     ports: 
@@ -19,7 +19,7 @@ services:
     build: ./requirements/wordpress-fpm/
     container_name: wp-fpm
     volumes:
-      - /home/hkovac/data/wordpress:/var/www/html/wordpress
+      - ./data/wordpress:/var/www/
     env_file:
       - .env
     tty: true
@@ -35,7 +35,7 @@ services:
     build: ./requirements/mariadb/
     container_name: mariadb
     volumes:
-      - /home/hkovac/data/db:/var/lib/mysql
+      - ./data/db:/var/lib/mysql
     tty: true
     stdin_open: true
     env_file:
